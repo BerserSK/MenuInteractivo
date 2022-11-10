@@ -12,6 +12,7 @@
   "dependencies": {
     "colors": "^1.4.0",
     "inquirer": "^8.2.5",
+    "requirer": "^0.0.4",
     "uuid": "^9.0.0"
   }
 }

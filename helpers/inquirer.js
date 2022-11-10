@@ -14,23 +14,43 @@ const preguntas = {
         },
         {
             value: '2',
-            name: `${ '2'.green}. Lista tareas`
+            name: `${ '2'.green}. Lista usuarios`
         },
         {
             value: '3',
-            name: `${ '3'.green}. Lista tareascompletadas`
+            name: `${ '3'.green}. Crear objetos`
         },
         {
             value: '4',
-            name: `${ '4'.green}. Lista tareaspendientes`
+            name: `${ '4'.green}. Lista Objetos`
         },
         {
             value: '5',
-            name: `${ '5'.green}. Compltar taras`
+            name: `${ '5'.green}. Crear Ciudad`
         },
         {
             value: '6',
-            name: `${ '6'.green}. Borra tareas`
+            name: `${ '6'.green}. Lista Ciudades`
+        },
+        {
+            value: '7',
+            name: `${ '7'.green}. Borrar Usuario`
+        },
+        {
+            value: '8',
+            name: `${ '8'.green}. Completar Tarea`
+        },
+        {
+            value: '9',
+            name: `${ '9'.green}. Listar Tarea`
+        },
+        {
+            value: '10',
+            name: `${ '10'.green}. Listar tareas completadas`
+        },
+        {
+            value: '11',
+            name: `${ '11'.green}. Listar tareas pendientes`
         },
         {
             value: '0',
@@ -78,22 +98,106 @@ const leerInput = async(message) => {
             name: 'telefono',
             name: 'direccion',
             name: 'pais',
+            name: 'password',
+            name: 'conPassword',
+            name: 'nombreO',
+            name: 'desc',
+            name: 'cant',
+            name: 'ciudad',
+            name: 'continente',
             message,
             validate( value ){
                 if(value.length === 0){
                     return 'Por favor ingrese un valor';
                 }
+
+                if(value.password != value.conPassword){
+                    return 'Las contraseñas con coinciden';
+                }
+
                 return true;
             }
         }
     ]
 
-    const { nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais } = await inquirer.prompt(question);
-    return nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais;
+    const { nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword, nombreO, desc, cant, ciudad, continente} = await inquirer.prompt(question);
+
+    return nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword, nombreO, desc, cant, ciudad, continente;
+}
+
+const ListadoTareasBorrar = async( tareas = [] ) => {
+
+    const choices = tareas.map( (tarea, i) => {
+        const idx = `${i + 1}.`.green;
+
+        return {
+            value: tarea.id,
+            name: `${ idx } ${ tarea.nombre }`
+        }
+    })
+
+    choices.unshift({
+        value: '0',
+        name: '0'.green + ' Cancelar'
+    })
+
+    const preguntas = [
+        {
+            type: 'list',
+            name: 'id',
+            message: 'Borrar',
+            choices
+        }
+    ]
+
+    const { id } = await inquirer.prompt(preguntas);
+    return id;
+}
+
+const Confirmar = async(message) => {
+    
+    const question = [
+        {
+            type: 'confirm',
+            name: 'ok',
+            message
+        }
+    ]
+
+    const { ok } = await inquirer.prompt(question)
+    return ok
+} 
+
+const MostrarListadoChecklist = async( tareas = [] ) => {
+
+    const choices = tareas.map( (tarea, i ) => {
+        const idx = `${i + 1}.`.green;
+
+        return {
+            value: tarea.id,
+            name: `${ idx } ${ tarea.nombre }`,
+            checked: ( tarea.correo ) ? true : false
+        }
+    })
+
+    const pregunta = [
+        {
+            type: 'checkbox',
+            name: 'ids',
+            message: 'Selecciones',
+            choices
+        }
+    ]
+
+    const { ids } = await inquirer.prompt(pregunta);
+    return ids;
 }
 
 module.exports = {
     inquireMenu,
     pausa,
-    leerInput
+    leerInput,
+    ListadoTareasBorrar,
+    Confirmar,
+    MostrarListadoChecklist
 }
