@@ -104,7 +104,6 @@ const leerInput = async(message) => {
             name: 'desc',
             name: 'cant',
             name: 'ciudad',
-            name: 'continente',
             message,
             validate( value ){
                 if(value.length === 0){
@@ -120,9 +119,9 @@ const leerInput = async(message) => {
         }
     ]
 
-    const { nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword, nombreO, desc, cant, ciudad, continente} = await inquirer.prompt(question);
+    const { nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword, nombreO, desc, cant, ciudad} = await inquirer.prompt(question);
 
-    return nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword, nombreO, desc, cant, ciudad, continente;
+    return nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword, nombreO, desc, cant, ciudad;
 }
 
 const ListadoTareasBorrar = async( tareas = [] ) => {

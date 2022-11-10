@@ -5,10 +5,9 @@ class Ciudad{
     ciudades = '';
     continente = '';
 
-    constructor( ciudades, continente){
+    constructor( ciudades){
         this.id = uuidv4();
         this.ciudades = ciudades;
-        this.continente = continente;
     }
 }
 

@@ -1,6 +1,6 @@
 require('colors');
 
-const { guardarDB, leerDB } = require('./helpers/guardarArchivo');
+const { guardarDB, leerDB, guardarDBObj, leerDBObj } = require('./helpers/guardarArchivo');
 const { inquireMenu, pausa, leerInput, ListadoTareasBorrar, Confirmar, MostrarListadoChecklist }= require('./helpers/inquirer');
 const Objetos = require('./models/objetos');
 const Tarea = require('./models/tarea');
@@ -14,10 +14,16 @@ const main = async () => {
     const objetos = new Objetos();
     const ciudad = new Ciudades();
     const tareasDB = leerDB();
+    const objetosBD = leerDBObj();
 
     if ( tareasDB ){
         //Cargar Tareas
         tareas.CargarTareasFromArray( tareasDB );
+    }
+
+    if( objetosBD ){
+        //Cargar Objetos
+        objetos.CargarTareasFromArray( objetosBD )
     }
 
     do{
@@ -39,7 +45,10 @@ const main = async () => {
                 const telefono = await leerInput('Numero de Telefono:')
                 const direccion = await leerInput('Dirreccion:')
                 const pais = await leerInput('Pais:')
+                
+
                 tareas.CrearTarea( nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword );
+                
             break;
             case '2':
                 console.log( tareas.listadoArr);
@@ -88,6 +97,7 @@ const main = async () => {
         }
 
         guardarDB( tareas.listadoArr);
+        guardarDBObj( objetos.listadorArrO);
 
         await pausa();
 

@@ -2,12 +2,12 @@ const Ciudad = require("./ciudad")
 
 
 class Ciudades{
-    _listado = {}
+    _listadoC = {}
 
     get listadorArrC(){
         const listado = []
-        Object.keys(this._listado).forEach( key =>{
-            const ciudad = this._listado[key]
+        Object.keys(this._listadoC).forEach( key =>{
+            const ciudad = this._listadoC[key]
             listado.push( ciudad )
         })
 
@@ -15,13 +15,13 @@ class Ciudades{
     }
 
     constructor(){
-        this._listado = {}
+        this._listadoC = {}
     }
 
-    crearCiudad(ciudades = '', continente = ''){
-        const ciudad = new Ciudad(ciudades, continente)
+    crearCiudad(ciudades = ''){ 
+        const ciudad = new Ciudad(ciudades)
 
-        this._listado[ciudades.id] = ciudad
+        this._listadoC[ciudades.id] = ciudad
     }
 }
 

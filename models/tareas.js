@@ -1,4 +1,7 @@
+const Ciudades = require("./ciudades");
 const Tarea = require("./tarea");
+
+const ciudad = new Ciudades;
 
 class Tareas{
     _listado = {};
@@ -42,8 +45,8 @@ class Tareas{
             const idx = `${i + 1}`.green;
             const {nombre, completadoEn} = tarea;
             const estado = ( completadoEn )
-                            ? 'Completada'.green
-                            : 'Pendiente'.red;
+                            ? 'Con Ciudad'.green
+                            : 'Sin Ciudad'.red;
             console.log(`${ idx } ${ nombre } :: ${ estado }`)
         });
     }
