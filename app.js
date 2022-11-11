@@ -12,7 +12,7 @@ const main = async () => {
     let opt = '';
     const tareas = new Tareas();
     const objetos = new Objetos();
-    const ciudad = new Ciudades();
+    const ciudads = new Ciudades();
     const tareasDB = leerDB();
     const objetosBD = leerDBObj();
     const ciudadesDB = leerDBCiu();
@@ -26,6 +26,11 @@ const main = async () => {
         //Cargar Objetos
         objetos.CargarTareasFromArray( objetosBD )
     }
+
+    if( ciudadesDB ){
+        //Cargar Objetos
+        ciudads.CargarTareasFromArray( ciudadesDB )
+    }
     
     
 
@@ -38,15 +43,15 @@ const main = async () => {
         switch(opt){
             case '1':
                 //Crear opcion de usuario
-                const nombre = await leerInput('Nombre Usuario:')
-                const correo = await leerInput('Correo Electronico:')
-                const password = await leerInput('Escriba la Contraseña:')
-                const conPassword = await leerInput('Confirme la Contraseña:')
-                const nacimiento = await leerInput('Fecha de Nacimiento:')
-                const tipoCedula = await leerInput('Tipo de Documento:')
-                const noCedula = await leerInput('Numero de Documento:')
-                const telefono = await leerInput('Numero de Telefono:')
-                const direccion = await leerInput('Dirreccion:')
+                const nombre = await leerInput('Nombre Usuario:'.red.underline)
+                const correo = await leerInput('Correo Electronico:'.red.underline)
+                const password = await leerInput('Escriba la Contraseña:'.red.underline)
+                const conPassword = await leerInput('Confirme la Contraseña:'.red.underline)
+                const nacimiento = await leerInput('Fecha de Nacimiento:'.red.underline)
+                const tipoCedula = await leerInput('Tipo de Documento:'.red.underline)
+                const noCedula = await leerInput('Numero de Documento:'.red.underline)
+                const telefono = await leerInput('Numero de Telefono:'.red.underline)
+                const direccion = await leerInput('Dirreccion:'.red.underline)
 
                 tareas.CrearTarea( nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, password, conPassword );
                 
@@ -55,9 +60,9 @@ const main = async () => {
                 console.log( tareas.listadoArr);
             break
             case '3':
-                const nombreO = await leerInputObj('Nombre/Tipo de Objeto: ')
-                const desc = await leerInputObj('Descripcion del Objeto: ')
-                const cant = await leerInputObj('Cantidad del Objeto: ')
+                const nombreO = await leerInputObj('Nombre/Tipo de Objeto:'.grey.underline)
+                const desc = await leerInputObj('Descripcion del Objeto:'.grey.underline)
+                const cant = await leerInputObj('Cantidad del Objeto:'.grey.underline)
                 objetos.crearObjeto(nombreO, desc, cant)
                 guardarDB( objetos.listadorArrO );
             break;
@@ -65,12 +70,13 @@ const main = async () => {
                 console.log( objetos.listadorArrO);
             break;
             case '5':
-                const pais = await leerInputCiu('Pais:')
-                const ciudades = await leerInputCiu('Nombre de la Ciudad: ');
-                ciudad.CrearCiudad( ciudades, pais )
+                const pais = await leerInputCiu('Pais:'.magenta.underline)
+                const ciudades = await leerInputCiu('Nombre de la Ciudad:'.magenta.underline);
+                ciudads.CrearCiudad( pais, ciudades )
+                guardarDBCiu( ciudads.listadorArrC );
             break
             case '6':
-                console.log(ciudad.listadorArrC);
+                console.log(ciudads.listadorArrC);
             break;
             case '7':
                 const id = await ListadoTareasBorrar( tareas.listadoArr );
@@ -99,6 +105,7 @@ const main = async () => {
 
         guardarDB( tareas.listadoArr);
         guardarDBObj( objetos.listadorArrO);
+        guardarDBCiu( ciudads.listadorArrC);
 
         await pausa();
 

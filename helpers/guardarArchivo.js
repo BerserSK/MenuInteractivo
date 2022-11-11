@@ -16,8 +16,11 @@ const guardarDBObj = ( data ) =>{
     fs.writeFileSync(archivoObj, JSON.stringify(data));
 }
 
+//Crear Json Ciudades
+const guardarDBCiu = ( data ) =>{
 
-
+    fs.writeFileSync(archivoCiu, JSON.stringify(data));
+}
 
 // No Borrar los Datos Ya Guardados de Usuarios
 const leerDB = () => {
@@ -66,4 +69,5 @@ module.exports = {
     guardarDBObj,
     leerDBObj,
     leerDBCiu,
+    guardarDBCiu
 }

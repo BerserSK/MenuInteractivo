@@ -5,7 +5,7 @@ class Ciudad{
     pais = '';
     ciudades = '';
 
-    constructor( ciudades, pais ){
+    constructor( pais, ciudades ){
         this.id = uuidv4();
         this.ciudades = ciudades;
         this.pais = pais;

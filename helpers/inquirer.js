@@ -6,35 +6,35 @@ const inquirer = require('inquirer');
 const preguntas = {
     type: 'list',
     name: 'opcion',
-    message: 'que desea hacer?',
+    message: `${'Que desea hacer?'.black.bgWhite.bold}`,
     choices: [
         {
             value: '1',
-            name: `${ '1'.green}. Crear usuario`
+            name: `${ '1'.green}. ${'Crear usuario'.rainbow }`
         },
         {
             value: '2',
-            name: `${ '2'.green}. Lista usuarios`
+            name: `${ '2'.green}. ${'Lista usuarios'.random}`
         },
         {
             value: '3',
-            name: `${ '3'.green}. Crear objetos`
+            name: `${ '3'.green}. ${'Crear objetos'.rainbow}`
         },
         {
             value: '4',
-            name: `${ '4'.green}. Lista Objetos`
+            name: `${ '4'.green}. ${'Lista Objetos'.random}`
         },
         {
             value: '5',
-            name: `${ '5'.green}. Crear Ciudad`
+            name: `${ '5'.green}. ${'Crear Ciudad'.rainbow}`
         },
         {
             value: '6',
-            name: `${ '6'.green}. Lista Ciudades`
+            name: `${ '6'.green}. ${'Lista Ciudades'.random}`
         },
         {
             value: '7',
-            name: `${ '7'.green}. Borrar Usuario`
+            name: `${ '7'.green}. ${'Borrar Usuario'.rainbow}`
         },
         /*{
             value: '8',

@@ -2,26 +2,26 @@ const Ciudad = require("./ciudad")
 
 
 class Ciudades{
-    _listadoC = {}
+    _listado = {}
 
-    get listadoArrC(){
+    get listadorArrC(){
         const listado = []
-        Object.keys(this._listadoC).forEach( key =>{
-            const ciudad = this._listadoC[key]; 
-            listado.push( ciudad );
-        });
+        Object.keys(this._listado).forEach(key =>{
+            const ciudad = this._listado[key];
+            listado.push( ciudad )
+        })
 
         return listado;
     }
 
     constructor(){
-        this._listadoC = {}
+        this._listado = {}
     }
 
-    CrearCiudad(ciudades = '', pais = ''){
-        const ciudad = new Ciudad(ciudades, pais )
+    CrearCiudad(pais = '', ciudades = ''){
+        const ciudad = new Ciudad(pais, ciudades)
 
-        this._listadoC[ciudad.id] = ciudad
+        this._listado[ciudad.id] = ciudad
     }
 
     BorrarTarea( id = '' ){
@@ -38,7 +38,7 @@ class Ciudades{
 
     ListadoCompleto(){
         console.log();
-        this.listadoArrC.forEach( (ciudad, i) => {
+        this.listadorArrC.forEach( (ciudad, i) => {
 
             const idx = `${i + 1}`.green;
             const {nombre, completadoEn} = tarea;
