@@ -36,7 +36,7 @@ const preguntas = {
             value: '7',
             name: `${ '7'.green}. Borrar Usuario`
         },
-        {
+        /*{
             value: '8',
             name: `${ '8'.green}. Completar Tarea`
         },
@@ -51,7 +51,7 @@ const preguntas = {
         {
             value: '11',
             name: `${ '11'.green}. Listar tareas pendientes`
-        },
+        },*/
         {
             value: '0',
             name: `${ '0'.green}. Salir`
@@ -97,13 +97,8 @@ const leerInput = async(message) => {
             name: 'noCedula',
             name: 'telefono',
             name: 'direccion',
-            name: 'pais',
             name: 'password',
             name: 'conPassword',
-            name: 'nombreO',
-            name: 'desc',
-            name: 'cant',
-            name: 'ciudad',
             message,
             validate( value ){
                 if(value.length === 0){
@@ -119,9 +114,62 @@ const leerInput = async(message) => {
         }
     ]
 
-    const { nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword, nombreO, desc, cant, ciudad} = await inquirer.prompt(question);
+    const { nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, password, conPassword } = await inquirer.prompt(question);
 
-    return nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword, nombreO, desc, cant, ciudad;
+    return nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, password, conPassword;
+}
+
+const leerInputObj = async(message) => {
+    const question = [
+        {
+            name: 'nombreO',
+            name: 'desc',
+            name: 'cant',
+            message,
+            validate( value ){
+                if(value.length === 0){
+                    return 'Por favor ingrese un valor';
+                }
+
+                if(value.password != value.conPassword){
+                    return 'Las contraseñas con coinciden';
+                }
+
+                return true;
+            }
+        }
+    ]
+
+    const { nombreO, desc, cant} = await inquirer.prompt(question);
+
+    return  nombreO, desc, cant;
+
+}
+
+const leerInputCiu = async(message) => {
+    const question = [
+        {
+            name: 'pais',
+            name: 'ciudades',
+            message,
+            validate( value ){
+                if(value.length === 0){
+                    return 'Por favor ingrese un valor';
+                }
+
+                if(value.password != value.conPassword){
+                    return 'Las contraseñas con coinciden';
+                }
+
+                return true;
+            }
+        }
+    ]
+
+    const { pais, ciudades } = await inquirer.prompt(question);
+
+    return pais, ciudades;
+
 }
 
 const ListadoTareasBorrar = async( tareas = [] ) => {
@@ -196,6 +244,8 @@ module.exports = {
     inquireMenu,
     pausa,
     leerInput,
+    leerInputObj,
+    leerInputCiu,
     ListadoTareasBorrar,
     Confirmar,
     MostrarListadoChecklist

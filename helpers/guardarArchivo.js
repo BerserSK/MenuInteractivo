@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const archivo = './db/data.json'
 const archivoObj = './db/dataObj.json'
+const archivoCiu = './db/dataCiu.json'
 
 // Crear Json Usuarios
 const guardarDB = ( data ) =>{
@@ -14,6 +15,8 @@ const guardarDBObj = ( data ) =>{
 
     fs.writeFileSync(archivoObj, JSON.stringify(data));
 }
+
+
 
 
 // No Borrar los Datos Ya Guardados de Usuarios
@@ -42,9 +45,25 @@ const leerDBObj = () => {
     return data;
 
 }
+
+// No Borrar los Datos Ya Guardados de ciudades
+const leerDBCiu = () => {
+
+    if( !fs.existsSync(archivoCiu) ){
+        return null;
+    }
+
+    const info = fs.readFileSync(archivoCiu, { encoding: 'utf-8'});
+    const data = JSON.parse( info );
+
+    return data;
+
+}
+
 module.exports = {
     guardarDB,
     leerDB,
     guardarDBObj,
-    leerDBObj
+    leerDBObj,
+    leerDBCiu,
 }

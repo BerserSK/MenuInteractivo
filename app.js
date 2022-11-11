@@ -1,7 +1,7 @@
 require('colors');
 
-const { guardarDB, leerDB, guardarDBObj, leerDBObj } = require('./helpers/guardarArchivo');
-const { inquireMenu, pausa, leerInput, ListadoTareasBorrar, Confirmar, MostrarListadoChecklist }= require('./helpers/inquirer');
+const { guardarDB, leerDB, guardarDBObj, leerDBObj, leerDBCiu, guardarDBCiu } = require('./helpers/guardarArchivo');
+const { inquireMenu, pausa, leerInput, ListadoTareasBorrar, Confirmar, MostrarListadoChecklist, leerInputObj, leerInputCiu }= require('./helpers/inquirer');
 const Objetos = require('./models/objetos');
 const Tarea = require('./models/tarea');
 const Tareas = require('./models/tareas');
@@ -15,6 +15,7 @@ const main = async () => {
     const ciudad = new Ciudades();
     const tareasDB = leerDB();
     const objetosBD = leerDBObj();
+    const ciudadesDB = leerDBCiu();
 
     if ( tareasDB ){
         //Cargar Tareas
@@ -25,6 +26,8 @@ const main = async () => {
         //Cargar Objetos
         objetos.CargarTareasFromArray( objetosBD )
     }
+    
+    
 
     do{
         //Imprimir el menu
@@ -44,19 +47,17 @@ const main = async () => {
                 const noCedula = await leerInput('Numero de Documento:')
                 const telefono = await leerInput('Numero de Telefono:')
                 const direccion = await leerInput('Dirreccion:')
-                const pais = await leerInput('Pais:')
-                
 
-                tareas.CrearTarea( nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, pais, password, conPassword );
+                tareas.CrearTarea( nombre, correo, nacimiento, tipoCedula, noCedula, telefono, direccion, password, conPassword );
                 
             break;
             case '2':
                 console.log( tareas.listadoArr);
             break
             case '3':
-                const nombreO = await leerInput('Nombre/Tipo de Objeto')
-                const desc = await leerInput('Descripcion del Objeto')
-                const cant = await leerInput('Cantidad del Objeto')
+                const nombreO = await leerInputObj('Nombre/Tipo de Objeto: ')
+                const desc = await leerInputObj('Descripcion del Objeto: ')
+                const cant = await leerInputObj('Cantidad del Objeto: ')
                 objetos.crearObjeto(nombreO, desc, cant)
                 guardarDB( objetos.listadorArrO );
             break;
@@ -64,9 +65,9 @@ const main = async () => {
                 console.log( objetos.listadorArrO);
             break;
             case '5':
-                const continente = await leerInput ('Nombre del Continente');
-                const ciudades = await leerInput('Nombre de la Ciudad');
-                ciudad.crearCiudad(continente, ciudades)
+                const pais = await leerInputCiu('Pais:')
+                const ciudades = await leerInputCiu('Nombre de la Ciudad: ');
+                ciudad.CrearCiudad( ciudades, pais )
             break
             case '6':
                 console.log(ciudad.listadorArrC);
